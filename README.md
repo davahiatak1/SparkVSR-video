@@ -1,15 +1,23 @@
 <div align="center">
-<p align="center"> <img src="assets/logo2.png" width="360px"> </p>
+  <p><img src="assets/logo2.png" width="360px"></p>
+  <h1>SparkVSR: Interactive Video Super-Resolution via Sparse Keyframe Propagation</h1>
+  <p>
+    Jiongze Yu<sup>1</sup>, Xiangbo Gao<sup>1</sup>, Pooja Verlani<sup>2</sup>, Akshay Gadde<sup>2</sup>,
+    Yilin Wang<sup>2</sup>, Balu Adsumilli<sup>2</sup>, Zhengzhong Tu<sup>†,1</sup>
+  </p>
+  <p>
+    <sup>1</sup>Texas A&amp;M University &nbsp;&nbsp; <sup>2</sup>YouTube, Google
+    <br>
+    <sup>†</sup>Corresponding author
+  </p>
+  <p>
+    <a href="https://sparkvsr.github.io/"><img src="https://img.shields.io/badge/Project-Page-Green"></a>
+    &nbsp;
+    <a href="https://huggingface.co/JiongzeYu/SparkVSR-S2"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-blue"></a>
+    &nbsp;
+    <a href="https://arxiv.org/abs/2603.16864"><img src="https://img.shields.io/badge/arXiv-2603.16864-b31b1b.svg"></a>
+  </p>
 </div>
-
-
-# SparkVSR: Interactive Video Super-Resolution via Sparse Keyframe Propagation
-
-[Jiongze Yu](Link), [Xiangbo Gao](Link), [Pooja Verlani](Link), [Akshay Gadde](Link), [Yilin Wang](Link), [Balu Adsumilli](Link), [Zhengzhong Tu](Link)
-
-<a href='https://sparkvsr.github.io/'><img src='https://img.shields.io/badge/Project-Page-Green'></a> &nbsp;
-<a href=""><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model%20-blue"></a> &nbsp;
-<a href=""><img src="https://img.shields.io/badge/arXiv-xxxx.xxxxx-b31b1b.svg"></a>
 
 > 💡 **Your ⭐ star means a lot to us and helps support the continuous development of this project!**
 
@@ -60,8 +68,8 @@ Moreover, we demonstrate that SparkVSR is a generic interactive, keyframe-condit
 
 ```bash
 # Clone the github repo and go to the directory
-git clone [TODO: Your Repository URL]
-cd SparkVSR-code
+git clone https://github.com/taco-group/SparkVSR
+cd SparkVSR
 
 # Create and activate conda environment
 conda create -n sparkvsr python=3.10
@@ -152,8 +160,8 @@ Our model is built upon the **CogVideoX1.5-5B-I2V** base model. We provide pretr
 | Model Name            |                   Description                    | HuggingFace |
 | :-------------------- | :----------------------------------------------: | :---------: |
 | CogVideoX1.5-5B-I2V | Base model used for initialization |    [zai-org/CogVideoX1.5-5B-I2V](https://huggingface.co/zai-org/CogVideoX1.5-5B-I2V)     |
-| SparkVSR (Stage-1) | SparkVSR Stage-1 trained weights |    [TODO: Add HF Link]     |
-| SparkVSR (Stage-2) | SparkVSR Stage-2 final weights |    [TODO: Add HF Link]     |
+| SparkVSR (Stage-1) | SparkVSR Stage-1 trained weights |    [JiongzeYu/SparkVSR-S1](https://huggingface.co/JiongzeYu/SparkVSR-S1)     |
+| SparkVSR (Stage-2) | SparkVSR Stage-2 final weights |    [JiongzeYu/SparkVSR-S2](https://huggingface.co/JiongzeYu/SparkVSR-S2)     |
 
 > 💡 **Placement of Models:**
 > - Place the base model (`CogVideoX1.5-5B-I2V`) into the `pretrained_weights/` folder.
@@ -179,7 +187,7 @@ Our model is built upon the **CogVideoX1.5-5B-I2V** base model. We provide pretr
   ```
   *(Adjust the path and step number to match your actual training output).*
 
-  > You can skip Stage-1 by downloading our [SparkVSR Stage-1 weight](TODO: Add Link) as the starting point for Stage-2.
+  > You can skip Stage-1 by downloading our [SparkVSR Stage-1 weight](https://huggingface.co/JiongzeYu/SparkVSR-S1) as the starting point for Stage-2.
 
   Then, run the second-stage fine-tuning:
 
@@ -254,7 +262,7 @@ CUDA_VISIBLE_DEVICES=0 python sparkvsr_inference_script.py \
     --ref_guidance_scale 1.0 \
     --eval_metrics psnr,ssim,lpips,dists,clipiqa \
     --upscale 4 \
-    --ref_indices 0 8
+    --ref_indices 0
 ```
 
 ### 3️⃣ PiSA-SR Mode (`--ref_mode pisasr`)
@@ -279,7 +287,7 @@ CUDA_VISIBLE_DEVICES=0 python sparkvsr_inference_script.py \
     --ref_guidance_scale 1.0 \
     --eval_metrics psnr,ssim,lpips,dists,clipiqa \
     --upscale 4 \
-    --ref_indices 0 8 \
+    --ref_indices 0 \
     --pisa_python_executable "path/to/your/pisasr/conda/env/bin/python" \
     --pisa_script_path "path/to/your/PiSA-SR/test_pisasr.py" \
     --pisa_sd_model_path "path/to/your/PiSA-SR/preset/models/stable-diffusion-2-1-base" \
@@ -306,11 +314,14 @@ Once the metrics are set up, you can simply run the unified evaluation script [`
 If you find the code helpful in your research or work, please cite the following paper(s).
 
 ```bibtex
-@inproceedings{yu2026sparkvsr,
-  title={SparkVSR: Interactive Video Super-Resolution via Sparse Keyframe Propagation},
-  author={Jiongze Yu and Xiangbo Gao and Pooja Verlani and Akshay Gadde and Yilin Wang and Balu Adsumilli and Zhengzhong Tu},
-  booktitle={arXiv preprint arXiv:xxxx.xxxxx},
-  year={2026}
+@misc{yu2026sparkvsrinteractivevideosuperresolution,
+      title={SparkVSR: Interactive Video Super-Resolution via Sparse Keyframe Propagation}, 
+      author={Jiongze Yu and Xiangbo Gao and Pooja Verlani and Akshay Gadde and Yilin Wang and Balu Adsumilli and Zhengzhong Tu},
+      year={2026},
+      eprint={2603.16864},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2603.16864}, 
 }
 ```
 
