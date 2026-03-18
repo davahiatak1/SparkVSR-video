@@ -13,7 +13,7 @@
   <p>
     <a href="https://sparkvsr.github.io/"><img src="https://img.shields.io/badge/Project-Page-Green"></a>
     &nbsp;
-    <a href="https://huggingface.co/JiongzeYu/SparkVSR-S2"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-blue"></a>
+    <a href="https://huggingface.co/JiongzeYu/SparkVSR"><img src="https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-blue"></a>
     &nbsp;
     <a href="https://arxiv.org/abs/2603.16864"><img src="https://img.shields.io/badge/arXiv-2603.16864-b31b1b.svg"></a>
   </p>
@@ -161,7 +161,7 @@ Our model is built upon the **CogVideoX1.5-5B-I2V** base model. We provide pretr
 | :-------------------- | :----------------------------------------------: | :---------: |
 | CogVideoX1.5-5B-I2V | Base model used for initialization |    [zai-org/CogVideoX1.5-5B-I2V](https://huggingface.co/zai-org/CogVideoX1.5-5B-I2V)     |
 | SparkVSR (Stage-1) | SparkVSR Stage-1 trained weights |    [JiongzeYu/SparkVSR-S1](https://huggingface.co/JiongzeYu/SparkVSR-S1)     |
-| SparkVSR (Stage-2) | SparkVSR Stage-2 final weights |    [JiongzeYu/SparkVSR-S2](https://huggingface.co/JiongzeYu/SparkVSR-S2)     |
+| SparkVSR (Stage-2) | SparkVSR Stage-2 final weights |    [JiongzeYu/SparkVSR](https://huggingface.co/JiongzeYu/SparkVSR)     |
 
 > 💡 **Placement of Models:**
 > - Place the base model (`CogVideoX1.5-5B-I2V`) into the `pretrained_weights/` folder.
