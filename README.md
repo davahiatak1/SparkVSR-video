@@ -30,9 +30,9 @@
 ### Demo
 
 <p align="center">
-  <video src="assets/demo.mp4" controls>
-    Your browser does not support the video tag. You can download the demo from <a href="assets/demo.mp4">here</a>.
-  </video>
+  <a href="assets/demo.mp4">
+    <img src="assets/demo.gif" alt="SparkVSR demo">
+  </a>
 </p>
 
 ---
