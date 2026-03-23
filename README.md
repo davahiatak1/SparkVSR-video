@@ -68,7 +68,6 @@ Moreover, we demonstrate that SparkVSR is a generic interactive, keyframe-condit
 - ✅ Release pre-trained models.
 - ✅ Release training code.
 - ✅ Release project page.
-- ⬜ Release ComfyUI.
 
 ## ⚙️ Dependencies
 
@@ -87,9 +86,11 @@ conda create -n sparkvsr python=3.10
 conda activate sparkvsr
 
 # Install all required dependencies
+pip install torch==2.5.0 torchvision==0.20.0 torchaudio==2.5.0 --index-url https://download.pytorch.org/whl/cu124
 pip install -r requirements.txt
 ```
 
+The installation command may need to be adjusted according to your platform, CUDA version, and desired PyTorch version. Please check the [official PyTorch previous versions page](https://pytorch.org/get-started/previous-versions/) for more options.
 
 ## 📖 Contents
 
