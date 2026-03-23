@@ -218,10 +218,14 @@ Our model is built upon the **CogVideoX1.5-5B-I2V** base model. We provide pretr
 
 ## <a name="inference"></a>🔨 Inference
 
-- Before running inference, make sure you have downloaded the corresponding pre-trained models and test datasets.
+- For a quick test, you can directly run SparkVSR on the sample videos in `test_input/`.
+- The example commands below are configured to use `test_input/` for fast testing.
+- Before running inference on benchmark datasets, make sure you have downloaded the corresponding pre-trained models and test datasets.
 - The full inference commands are provided in the shell script: `sparkvsr_inference.sh`.
 
 SparkVSR supports flexible keyframe propagation through three primary inference modes (`--ref_mode`).
+
+> 💡 **Note:** Whenever possible, we recommend using reference-guided inference (`api` or `pisasr`). Providing reference keyframes generally leads to better restoration quality and stronger controllability than pure no-reference inference.
 
 ### 🌟 Global Customization Flags
 
@@ -233,26 +237,7 @@ Regardless of the mode you choose, you can customize the temporal propagation be
 
 ---
 
-### 1️⃣ No-Ref Mode (`--ref_mode no_ref`)
-Performs blind video super-resolution without any reference keyframes.
-
-```shell
-MODEL_PATH="checkpoints/sparkvsr-s2/ckpt-500-sft" 
-
-CUDA_VISIBLE_DEVICES=0 python sparkvsr_inference_script.py \
-    --input_dir datasets/test/UDM10/LQ-Video \
-    --model_path $MODEL_PATH \
-    --output_path results/UDM10/no_ref \
-    --gt_dir datasets/test/UDM10/GT-Video \
-    --is_vae_st \
-    --ref_mode no_ref \
-    --ref_prompt_mode fixed \
-    --ref_guidance_scale 1.0 \
-    --eval_metrics psnr,ssim,lpips,dists,clipiqa \
-    --upscale 4
-```
-
-### 2️⃣ API Mode (`--ref_mode api`)
+### 1️⃣ API Mode (`--ref_mode api`)
 Uses keyframes restored by a commercial API as the condition signal. SparkVSR defaults to using the impressive `fal-ai/nano-banana-pro/edit` endpoint.
 
 > ⚠️ **Setup Requirement:**
@@ -265,20 +250,18 @@ Uses keyframes restored by a commercial API as the condition signal. SparkVSR de
 MODEL_PATH="checkpoints/sparkvsr-s2/ckpt-500-sft" 
 
 CUDA_VISIBLE_DEVICES=0 python sparkvsr_inference_script.py \
-    --input_dir datasets/test/UDM10/LQ-Video \
+    --input_dir test_input \
     --model_path $MODEL_PATH \
-    --output_path results/UDM10/api_ref \
-    --gt_dir datasets/test/UDM10/GT-Video \
+    --output_path results/test_input/api_ref \
     --is_vae_st \
     --ref_mode api \
     --ref_prompt_mode fixed \
     --ref_guidance_scale 1.0 \
-    --eval_metrics psnr,ssim,lpips,dists,clipiqa \
     --upscale 4 \
     --ref_indices 0
 ```
 
-### 3️⃣ PiSA-SR Mode (`--ref_mode pisasr`)
+### 2️⃣ PiSA-SR Mode (`--ref_mode pisasr`)
 Uses keyframes restored by the open-source PiSA-SR model.
 
 > ⚠️ **Setup Requirement:**
@@ -290,15 +273,13 @@ Uses keyframes restored by the open-source PiSA-SR model.
 MODEL_PATH="checkpoints/sparkvsr-s2/ckpt-500-sft" 
 
 CUDA_VISIBLE_DEVICES=0 python sparkvsr_inference_script.py \
-    --input_dir datasets/test/UDM10/LQ-Video \
+    --input_dir test_input \
     --model_path $MODEL_PATH \
-    --output_path results/UDM10/pisa_ref \
-    --gt_dir datasets/test/UDM10/GT-Video \
+    --output_path results/test_input/pisa_ref \
     --is_vae_st \
     --ref_mode pisasr \
     --ref_prompt_mode fixed \
     --ref_guidance_scale 1.0 \
-    --eval_metrics psnr,ssim,lpips,dists,clipiqa \
     --upscale 4 \
     --ref_indices 0 \
     --pisa_python_executable "path/to/your/pisasr/conda/env/bin/python" \
@@ -306,6 +287,23 @@ CUDA_VISIBLE_DEVICES=0 python sparkvsr_inference_script.py \
     --pisa_sd_model_path "path/to/your/PiSA-SR/preset/models/stable-diffusion-2-1-base" \
     --pisa_chkpt_path "path/to/your/PiSA-SR/preset/models/pisa_sr.pkl" \
     --pisa_gpu "0"
+```
+
+### 3️⃣ No-Ref Mode (`--ref_mode no_ref`)
+Performs blind video super-resolution without any reference keyframes. This is useful as a fallback or baseline, but reference-guided modes are generally recommended when available.
+
+```shell
+MODEL_PATH="checkpoints/sparkvsr-s2/ckpt-500-sft" 
+
+CUDA_VISIBLE_DEVICES=0 python sparkvsr_inference_script.py \
+    --input_dir test_input \
+    --model_path $MODEL_PATH \
+    --output_path results/test_input/no_ref \
+    --is_vae_st \
+    --ref_mode no_ref \
+    --ref_prompt_mode fixed \
+    --ref_guidance_scale 1.0 \
+    --upscale 4
 ```
 
 > 💡 **Note:** All three of the above inference modes and their complete execution commands are fully organized and ready to run in the [`sparkvsr_inference.sh`](./sparkvsr_inference.sh) script!
