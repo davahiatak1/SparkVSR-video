@@ -68,6 +68,7 @@ Moreover, we demonstrate that SparkVSR is a generic interactive, keyframe-condit
 - ✅ Release pre-trained models.
 - ✅ Release training code.
 - ✅ Release project page.
+- ⬜ Release ComfyUI.
 
 ## ⚙️ Dependencies
 
