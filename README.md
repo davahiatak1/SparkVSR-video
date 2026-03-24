@@ -231,7 +231,7 @@ SparkVSR supports flexible keyframe propagation through three primary inference 
 
 Regardless of the mode you choose, you can customize the temporal propagation behavior using these flags:
 - **`--ref_indices`**: Specifies the indices of the keyframes you want to use as references (0-indexed). 
-  - *Example:* `--ref_indices 0 16 32`
+  - *Example:* `--ref_indices 0 96`
   - ⚠️ **Important:** The interval between any two reference frame indices must be strictly **greater than 4**.
 - **`--ref_guidance_scale`**: Controls the strength of the reference keyframe's influence on the output video (Default is `1.0`). Increasing this value forces the model to adhere more strictly to the provided keyframes.
 - For short video clips (for example, clips within 2 seconds or around 48 frames), we strongly recommend using only the first frame as the reference signal: `--ref_indices 0`.
