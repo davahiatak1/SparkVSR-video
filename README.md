@@ -183,6 +183,7 @@ Our model is built upon the **CogVideoX1.5-5B-I2V** base model. We provide pretr
 ## <a name="training"></a>🔧 Training
 
 > **Note:** Training requires 4×A100 GPUs.
+> ⚠️ **Important:** The Stage-1 weight is the intermediate result of our first training stage and is trained only in latent space. We release it mainly for training-time validation and comparison. The Stage-2 model is the final SparkVSR model.
 
 - 🔹 **Stage-1 (Latent-Space): Keyframe-Conditioned Adaptation.** Enter the `finetune/` directory and start training:
 
@@ -225,7 +226,9 @@ Our model is built upon the **CogVideoX1.5-5B-I2V** base model. We provide pretr
 
 SparkVSR supports flexible keyframe propagation through three primary inference modes (`--ref_mode`).
 
-> 💡 **Note:** Whenever possible, we recommend using reference-guided inference (`api` or `pisasr`). Providing reference keyframes generally leads to better restoration quality and stronger controllability than pure no-reference inference.
+> ⚠️ **Important:** Always use the **Stage-2** checkpoint for inference. The Stage-1 checkpoint is only an intermediate latent-space result and is not our final model.
+>
+> 💡 **Recommendation:** Among the three inference modes, we strongly recommend the two reference-guided settings: `api` mode (with `nano-banana-pro` as the reference generator) and `pisasr` mode (with PiSA-SR as the reference generator). In these modes, SparkVSR injects high-quality spatial details through the reference frames. By contrast, `no_ref` does not use external reference frames and should be treated mainly as a practical fallback and a comparison baseline, rather than the final showcase setting. If you do not have access to the `nano-banana-pro` API, we strongly recommend using `pisasr` as the reference source.
 
 ### 🌟 Global Customization Flags
 
@@ -290,8 +293,8 @@ CUDA_VISIBLE_DEVICES=0 python sparkvsr_inference_script.py \
     --pisa_gpu "0"
 ```
 
-### 3️⃣* No-Ref Mode (`--ref_mode no_ref`)
-Performs blind video super-resolution without any reference keyframes. This is useful as a fallback or baseline, but reference-guided modes are generally recommended when available.
+### 3️⃣ Optional: No-Ref Mode (`--ref_mode no_ref`)
+Performs blind video super-resolution without any reference keyframes. This mode is useful as a practical fallback and baseline, but it is not the recommended setting for the best visual quality.
 
 ```shell
 MODEL_PATH="checkpoints/sparkvsr-s2/ckpt-500-sft" 

@@ -5,19 +5,6 @@
 MODEL_PATH="checkpoints/sparkvsr-s2/ckpt-500-sft" 
 
 
-# UDM10 (No-Ref)
-CUDA_VISIBLE_DEVICES=0 python sparkvsr_inference_script.py \
-    --input_dir datasets/test/UDM10/LQ-Video \
-    --model_path $MODEL_PATH \
-    --output_path results/UDM10/no_ref \
-    --gt_dir datasets/test/UDM10/GT-Video \
-    --is_vae_st \
-    --ref_mode no_ref \
-    --ref_prompt_mode fixed \
-    --ref_guidance_scale 1.0 \
-    --eval_metrics psnr,ssim,lpips,dists,clipiqa \
-    --upscale 4
-
 # UDM10 (API Mode)
 CUDA_VISIBLE_DEVICES=0 python sparkvsr_inference_script.py \
     --input_dir datasets/test/UDM10/LQ-Video \
@@ -50,3 +37,16 @@ CUDA_VISIBLE_DEVICES=0 python sparkvsr_inference_script.py \
     --pisa_sd_model_path "path/to/your/PiSA-SR/preset/models/stable-diffusion-2-1-base" \
     --pisa_chkpt_path "path/to/your/PiSA-SR/preset/models/pisa_sr.pkl" \
     --pisa_gpu "1"
+
+# UDM10 (No-Ref)
+CUDA_VISIBLE_DEVICES=0 python sparkvsr_inference_script.py \
+    --input_dir datasets/test/UDM10/LQ-Video \
+    --model_path $MODEL_PATH \
+    --output_path results/UDM10/no_ref \
+    --gt_dir datasets/test/UDM10/GT-Video \
+    --is_vae_st \
+    --ref_mode no_ref \
+    --ref_prompt_mode fixed \
+    --ref_guidance_scale 1.0 \
+    --eval_metrics psnr,ssim,lpips,dists,clipiqa \
+    --upscale 4
