@@ -234,6 +234,7 @@ Regardless of the mode you choose, you can customize the temporal propagation be
   - *Example:* `--ref_indices 0 16 32`
   - ⚠️ **Important:** The interval between any two reference frame indices must be strictly **greater than 4**.
 - **`--ref_guidance_scale`**: Controls the strength of the reference keyframe's influence on the output video (Default is `1.0`). Increasing this value forces the model to adhere more strictly to the provided keyframes.
+- For short video clips (for example, clips within 2 seconds or around 48 frames), we strongly recommend using only the first frame as the reference signal: `--ref_indices 0`.
 
 ---
 
@@ -289,7 +290,7 @@ CUDA_VISIBLE_DEVICES=0 python sparkvsr_inference_script.py \
     --pisa_gpu "0"
 ```
 
-### 3️⃣ No-Ref Mode (`--ref_mode no_ref`)
+### 3️⃣* No-Ref Mode (`--ref_mode no_ref`)
 Performs blind video super-resolution without any reference keyframes. This is useful as a fallback or baseline, but reference-guided modes are generally recommended when available.
 
 ```shell
